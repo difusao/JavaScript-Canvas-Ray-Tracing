@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bomb AI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+    <canvas id="mycanvas" tabindex='1'></canvas>
+    <script>
+        const canvas = document.getElementById("mycanvas");
+        const ctx = canvas.getContext('2d');
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        const circ = new Circ();
+        const gun = new Gun();
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var mouse = {
+            x: canvas.width / 2,
+            y: canvas.height / 2
+        };
+
+        var bull_start = {
+            x: cx,
+            y: cy,
+            angle: 0,
+        };
+
+        const display = {
+            x: 0,
+            y: 0,
+            angle: "null",
+            degree: "null",
+            draw: function () {
+                ctx.beginPath();
+                ctx.font = "14px arial";
+                ctx.fillStyle = "#000000";
+                ctx.fillText("Angle: " + this.angle, this.x, 30);
+                ctx.fillText("Degree: " + this.degree, this.x, 50);
+                ctx.closePath();
+            },
+            update: function () {
+                this.angle = bull_start.angle * 180 / Math.PI;
+                this.degree = bull_start.angle;
+                display.draw();
+            },
+        };
+
+        canvas.addEventListener('mousemove', function (event) {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        })
+
+        function Circ() {
+            this.x = 0;
+            this.y = 0;
+
+            this.draw = function () {
+                for (let i = 0; i < 63; i++) {
+                    ctx.beginPath();
+                    ctx.save();
+                    ctx.strokeStyle = "#808080";
+                    ctx.fillStyle = "#000000";
+                    ctx.lineWidth = 2;
+
+                    ctx.arc(cx, cy, 220, 0, 2 * Math.PI, false);
+
+                    ctx.setTransform(1, 0, 0, 1, cx, cy);
+                    ctx.rotate(-i / 10);
+
+                    ctx.fillRect(225, 0, 10, 3);
+
+                    ctx.stroke();
+                    ctx.restore();
+                    ctx.closePath();
+                }
+            }
+        }
+
+        function Gun() {
+            this.x = 0;
+            this.y = 0;
+
+            this.draw = function () {
+                ctx.beginPath();
+                ctx.save();
+
+                ctx.fillStyle = "#008000";
+                ctx.strokeStyle = "#000000";
+
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(this.x, this.y);
+
+                ctx.stroke();
+                ctx.fill();
+
+                ctx.restore();
+                ctx.closePath();
+            }
+
+            this.update = function () {
+                bull_start.angle = Math.atan2(mouse.y - cy, mouse.x - cx);
+                this.x = cx + Math.cos(bull_start.angle) * 220;
+                this.y = cy + Math.sin(bull_start.angle) * 220;
+                bull_start.x = this.x;
+                bull_start.y = this.y;
+
+                display.update();
+                this.draw();
+            }
+        }
+
+        function loop() {
+            requestAnimationFrame(loop);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            circ.draw();
+            gun.update();
+            display.draw();
+        }
+
+        loop();
+    </script>
+</body>
+
+</html>
