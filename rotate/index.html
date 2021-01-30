@@ -12,25 +12,25 @@
     <script>
         const canvas = document.getElementById("mycanvas");
         const ctx = canvas.getContext('2d');
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        const circ = new Circ();
-        const gun = new Gun();
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+
+        const circ = new Circ();
+        const gun = new Gun();
 
         var mouse = {
             x: canvas.width / 2,
             y: canvas.height / 2
         };
-
         var bull_start = {
             x: cx,
             y: cy,
             angle: 0,
         };
-
         const display = {
             x: 0,
             y: 0,
@@ -122,6 +122,10 @@
             circ.draw();
             gun.update();
             display.draw();
+        }
+
+        function start() {
+
         }
 
         loop();
