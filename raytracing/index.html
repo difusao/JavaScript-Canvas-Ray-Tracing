@@ -5,6 +5,7 @@
     <title>Rotate</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src='geometry.js'></script>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
         var secondsPassed;
         var oldTimeStamp;
         var fps;
-        var GAME_SPEED = 30;
+        var GAME_SPEED = 15;
 
         const cx = canvas.width / 2;
         const cy = canvas.height / 2;
@@ -35,36 +36,36 @@
             x: 350,
             y: 232,
             angle: 0,
-            size: 1000,
+            size: 200,
         };
         var obstaculos = [
-            { color: "#00ff00", pos: [{ x: 800, y: 800 }, { x: 600, y: 600 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 600, y: 600 }, { x: 400, y: 500 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 400, y: 500 }, { x: 300, y: 400 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 300, y: 400 }, { x: 100, y: 350 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 100, y: 350 }, { x: 75, y: 300 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 75, y: 300 }, { x: 0, y: 0 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 800, y: 800 }, { x: 600, y: 600 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 600, y: 600 }, { x: 400, y: 500 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 400, y: 500 }, { x: 300, y: 400 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 300, y: 400 }, { x: 100, y: 350 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 100, y: 350 }, { x: 75, y: 300 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 75, y: 300 }, { x: 0, y: 0 }], enable: true },
 
-            { color: "#00ff00", pos: [{ x: 1000, y: 800 }, { x: 800, y: 600 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 800, y: 600 }, { x: 600, y: 500 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 600, y: 500 }, { x: 500, y: 400 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 500, y: 400 }, { x: 400, y: 350 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 400, y: 350 }, { x: 200, y: 200 }], enable: true },
-            { color: "#00ff00", pos: [{ x: 200, y: 200 }, { x: 200, y: 0 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 1000, y: 800 }, { x: 800, y: 600 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 800, y: 600 }, { x: 600, y: 500 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 600, y: 500 }, { x: 500, y: 400 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 500, y: 400 }, { x: 400, y: 350 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 400, y: 350 }, { x: 200, y: 200 }], enable: true },
+            // { color: "#00ff00", pos: [{ x: 200, y: 200 }, { x: 200, y: 0 }], enable: true },
 
-            // { color: "#00ff00", pos: [{ x: 300, y: 100 }, { x: 400, y: 100 }], enable: true },
-            // { color: "#00ff00", pos: [{ x: 300, y: 200 }, { x: 300, y: 300 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 300, y: 100 }, { x: 400, y: 100 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 300, y: 200 }, { x: 300, y: 300 }], enable: true },
 
-            // { color: "#ff0000", pos: [{ x: 600, y: 300 }, { x: 650, y: 200 }], enable: false },
-            // { color: "#00ff00", pos: [{ x: 650, y: 300 }, { x: 700, y: 200 }], enable: true },
-            // { color: "#00ff00", pos: [{ x: 300, y: 350 }, { x: 300, y: 450 }], enable: true },
-            // { color: "#ff0000", pos: [{ x: 250, y: 400 }, { x: 250, y: 450 }], enable: false },
+            { color: "#ff0000", pos: [{ x: 600, y: 300 }, { x: 650, y: 200 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 650, y: 300 }, { x: 700, y: 200 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 300, y: 350 }, { x: 300, y: 450 }], enable: true },
+            { color: "#ff0000", pos: [{ x: 250, y: 400 }, { x: 250, y: 450 }], enable: false },
 
 
-            // { color: "#00ff00", pos: [{ x: 200, y: 200 }, { x: 250, y: 200 }], enable: true },
-            // { color: "#00ff00", pos: [{ x: 200, y: 200 }, { x: 200, y: 250 }], enable: true },
-            // { color: "#00ff00", pos: [{ x: 200, y: 250 }, { x: 250, y: 250 }], enable: true },
-            // { color: "#00ff00", pos: [{ x: 250, y: 250 }, { x: 250, y: 200 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 200, y: 200 }, { x: 250, y: 200 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 200, y: 200 }, { x: 200, y: 250 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 200, y: 250 }, { x: 250, y: 250 }], enable: true },
+            { color: "#00ff00", pos: [{ x: 250, y: 250 }, { x: 250, y: 200 }], enable: true },
         ];
 
         document.addEventListener("wheel", function (evt) {
@@ -171,7 +172,8 @@
                     let b = obstaculos[i].pos[1];
                     let c = { x: bull_start.x, y: bull_start.y };
                     let d = { x: this.x, y: this.y };
-                    let p = intersection(a, b, c, d);
+                    // let p = intersection2(a, b, c, d, i);
+                    let p = intersection(a, b, c, d, i);
 
                     if (p.isIntersection && obstaculos[i].enable) {
                         point(p);
@@ -205,11 +207,11 @@
             return rv
         }
 
-        function intersection(a, b, c, d) {
+        function intersection2(a, b, c, d, j) {
             let det = Math.round((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
 
-            let l = Math.round(a.x * b.y - a.y * b.x);
-            let m = Math.round(c.x * d.y - c.y * d.x);
+            let l = (a.x * b.y - a.y * b.x);
+            let m = (c.x * d.y - c.y * d.x);
 
             let ix = Math.round((l * (c.x - d.x) - m * (a.x - b.x)) / det);
             let iy = Math.round((l * (c.y - d.y) - m * (a.y - b.y)) / det);
@@ -217,22 +219,21 @@
             let i = P(ix, iy);
 
             i.isOverlap = (ix == a.x && iy == a.y) || (ix == b.x && iy == b.y)
+
             i.isIntersection = !(a.x < ix ^ ix < b.x) && !(a.y < iy ^ iy < b.y) && !(c.x < ix ^ ix < d.x) && !i.isOverlap && det
+            // i.isIntersection = !(a.x < ix ^ ix < b.x) && !(c.x < ix ^ ix < d.x) && !i.isOverlap && det
+            // i.isIntersection = !(a.x <= ix ^ ix <= b.x) && !(a.y <= iy ^ iy <= b.y) && !(c.x <= ix ^ ix <= d.x) && !i.isOverlap && det
 
-            // i.isIntersection = !(ix >= a.x ^ b.x >= ix) && !(iy >= a.y ^ b.y >= iy) && !(ix >= c.x ^ d.x >= ix) && !i.isOverlap && det
-
-            // if (!i.isIntersection) {
-            //     console.log(
-            //         !(a.x < ix ^ ix < b.x),
-            //         !(a.y < iy ^ iy < b.y),
-            //         !(c.x < ix ^ ix < d.x),
-            //         !i.isOverlap,
-            //         det,
-            //     );
-
-            //     // console.log("(a.y < iy)=", (a.y < iy), a.y, iy, "(iy < b.y)=", (iy < b.y), iy, b.y, "(", iy, b.y, ")");
-            //     // console.log(Math.round(a.y < iy));
-            // }
+            if (!i.isIntersection) {
+                // console.log("a =",a, "b =",b, "c =",c, "d =", d, "j =",j);
+                // console.log(
+                //     "(a.x < ix ^ ix < b.x)", `(${a.x} < ${ix} ^ ${ix} < ${b.x}) =`, !(a.x < ix ^ ix < b.x), `|`,
+                //     "(a.y < iy ^ iy < b.y)", `(${a.y} < ${iy} ^ ${iy} < ${b.y}) =`, !(a.y < iy ^ iy < b.y), `|`,
+                //     "(c.x < ix ^ ix < d.x)", `(${c.x} < ${ix} ^ ${ix} < ${d.x}) =`, !(c.x < ix ^ ix < d.x), `|`,
+                //     `i.isOverlap =`, !i.isOverlap, `|`,
+                //     `det =`, det,
+                // );
+            }
 
             // if (!i.isIntersection) {
             //     console.log(a, b, c, d);
@@ -362,7 +363,7 @@
             ctx.closePath();
 
             // Intersect
-            let p = intersection(a, b, c, d);
+            let p = intersection2(a, b, c, d);
             // let p = isIntersecting(a, b, c, d);
 
             if (p.isIntersection) {
@@ -383,9 +384,8 @@
             for (let i = 0; i < obstaculos.length; i++)
                 Obst(obstaculos[i]);
 
-            for (let i = 0; i < lines.length; i++) {
+            for (let i = 0; i < lines.length; i++)
                 lines[i].update();
-            }
         }
 
         const main = function (timeStamp) {
@@ -400,8 +400,10 @@
             createStyle(canvas);
 
             for (let i = 0; i < rays; i++) {
-                bull_start.angle = 3.13 + (i * 0.1);
-                // bull_start.angle = 4.6 + (i * 0.1);
+                // bull_start.angle = 3.13 + (i * 0.1);
+                // bull_start.angle = 4.8 + (i * 0.1);
+                // bull_start.angle = 3.14 + 0.1* i;
+                bull_start.angle = 0.1 * i;
                 lines.push(new Lines(bull_start));
             }
         }
