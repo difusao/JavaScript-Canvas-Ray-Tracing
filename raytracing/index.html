@@ -56,7 +56,7 @@
             { color: "#00ff00", pos: [{ x: 300, y: 100 }, { x: 400, y: 100 }], enable: true },
             { color: "#00ff00", pos: [{ x: 300, y: 200 }, { x: 300, y: 300 }], enable: true },
 
-            { color: "#ff0000", pos: [{ x: 600, y: 300 }, { x: 650, y: 200 }], enable: true },
+            { color: "#ff0000", pos: [{ x: 600, y: 300 }, { x: 650, y: 200 }], enable: false },
             { color: "#00ff00", pos: [{ x: 650, y: 300 }, { x: 700, y: 200 }], enable: true },
             { color: "#00ff00", pos: [{ x: 300, y: 350 }, { x: 300, y: 450 }], enable: true },
             { color: "#ff0000", pos: [{ x: 250, y: 400 }, { x: 250, y: 450 }], enable: false },
@@ -172,8 +172,9 @@
                     let b = obstaculos[i].pos[1];
                     let c = { x: bull_start.x, y: bull_start.y };
                     let d = { x: this.x, y: this.y };
-                    // let p = intersection2(a, b, c, d, i);
-                    let p = intersection(a, b, c, d, i);
+                    
+                    let p = intersection2(a, b, c, d, i);
+                    // let p = intersection(a, b, c, d, i);
 
                     if (p.isIntersection && obstaculos[i].enable) {
                         point(p);
